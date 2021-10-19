@@ -33,6 +33,7 @@ function init(){
 	advy=-(yiniciais[fase]*200)-20;
 	tempo=0;
 	colisao=false;
+	oponente=parseInt(Math.random()*4);
 }
 function vira(k){
 	if(k==37||k==65)esq=true;
@@ -51,7 +52,7 @@ function gameLoop(){
 	if(pista[fase][lx][ly]==2)anguloadv=18;
 	if(pista[fase][lx][ly]==3)anguloadv=27;
 	if(pista[fase][lx][ly]==1)anguloadv=0;
-	document.getElementById('adv').src="RA/Adversario/"+anguloadv+'.png';
+	document.getElementById('adv').src="RA/Adversario/"+oponente+"/"+anguloadv+'.png';
 	document.getElementById('adv').style.top=(posx-advx+200)+'px';
 	document.getElementById('adv').style.left=(posy-advy+200)+'px';
 	if(lx==xfinais[fase]&&ly==yfinais[fase]){
@@ -71,6 +72,7 @@ function gameLoop(){
 			posx+=fatorx[angulo]*3.7;
 			posy+=fatory[angulo]*3.7;
 		}
+		document.getElementById('mm'+lx+"_"+ly).style.background="#338833";
 	}else{
 		if(tempo/tempodafase[fase]>50)alert(parseInt(Math.min(tempo/tempodafase[fase],100))+"%");
 		init();
@@ -79,22 +81,31 @@ function gameLoop(){
 		alert('Você venceu !\n\nZerou essa fase !!!');
 		drawStage(fase+1);
 	}
-	document.getElementById('percent').innerHTML=parseInt(Math.min(tempo/tempodafase[fase],100))+"%";
 	setTimeout('gameLoop();',34+(parseInt((980-(tempo++))*.5/20)));
 }
 function drawStage(f){
 	fase=f%3;
 	init();
-	texto="<center><img style='width:64px; position:absolute; z-index:2; top:200px; left:200px;' id=car src=RA/Foguetes/18.png><img style='width:64px; position:absolute; z-index:2; top:200px; left:200px;' id=adv src=RA/Adversario/18.png></center><div id=percent style='position:absolute; z-index:2; color:#0f0; right:8px; top:6px;'>0%</div><div style='position:absolute; z-index:2; right:8px; top:27px; background-color:#ffffff; padding:3px 1px 3px 0px;'>";
+	texto="<center><img style='width:64px; position:absolute; top:200px; left:200px; z-index:1;' id=car src=RA/Foguetes/18.png><img style='width:64px; position:absolute; top:200px; left:200px; z-index:1;' id=adv src=RA/Adversario/18.png></center><div style='position:absolute; right:6px; top:5px; background-color:#ffffff; padding:3px 1px 3px 0px; z-index:2;'>";
 	for(x=0;x<3;x++)texto+="<input style='cursor:pointer;' onclick=\"drawStage("+x+");\" type=radio"+(fase==x?" checked":"")+"><br>";
-	texto+="</div><table cellpadding=0 cellspacing=0 id=tracado style='position:absolute; z-index:1; top:"+posy+"px; left:"+posx+"px;'><tr>";
+	texto+="</div><table cellpadding=0 cellspacing=0 id=tracado style='position:absolute; top:"+posy+"px; left:"+posx+"px;'><tr>";
 	for(x=0;x<pista[fase].length;x++){
 		for(y=0;y<pista[fase][x].length;y++)
 			if(pista[fase][x][y]!=0)texto+="<td><img src=RA/"+pista[fase][x][y]+".png></td>";
 			else texto+="<td style='width:200px;'> </td>";
 		texto+="</tr><tr>";
 	}
-	document.body.innerHTML=texto+"</tr></table>";
+	texto+="</tr></table><div id=minimap style='position:absolute; bottom:4px; right:4px; background-color:#000000; border:1px solid #bbbbbb; z-index:2;'><table cellpadding=0 cellspacing=1 style='margin:18px 10px 10px 14px; cursor:pointer;' onclick='ocultaminimap();'><tr>";
+	for(x=0;x<pista[fase].length;x++){
+		for(y=0;y<pista[fase][x].length;y++)
+			texto+="<td style='width:4px; height:4px;"+(pista[fase][x][y]!=0?" background-color:#ffffff;":"")+"' id=mm"+x+"_"+y+"> </td>";
+		texto+="</tr><tr>";
+	}
+	document.body.innerHTML=texto+"</tr></table></div>";
+}
+function ocultaminimap(){
+	document.getElementById('minimap').style.display='none';
+	document.body.innerHTML+="<img src=RA/1.png style='width:20px; position:absolute; bottom:6px; right:6px; cursor:pointer;' onclick='drawStage(fase);'>";
 }
 </script>
 </html>
