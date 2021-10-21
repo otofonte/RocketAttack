@@ -13,8 +13,8 @@ Esse tipo de arquivo é ao mesmo tempo texto e executável.\
 É uma espécie de html executável !!!
 
 ### 2 - imagens dos foguetes
-A pasta foguetes contém 36 imagens.\
-No jogo a nave principal sempre fica no meio da tela.\
+A pasta foguetes contém **36** imagens.\
+No jogo a **nave principal** sempre fica no meio da tela.\
 A nave rotaciona no sentido horário quando o jogador mantém a seta do teclado pressionada.\
 No código-fonte existe uma váriável que armazena o ângulo de inclinação da nave.\
 Na tela a nave é redesenhada constantemente no ângulo de inclinação correto.\
@@ -44,11 +44,9 @@ A função **init** configura algumas variáveis.\
 **posy** armazena a posição da navinha no eixo y\
 A função **init** calcula o posicionamento da navinha baseada nas coordenadas **xiniciais** , **yiniciais**
 
-### 7 - tempo e tempodafase
+### 7 - tempo
 A variável **tempo** é inicializada com zero na função **init**.\
-A cada **'frame'** essa variável é incrementada.\
-Para calcular a porcentagem concluída da fase durante o jogo basta dividir o **tempo** por **tempodafase**.\
-O array **tempodafase** armazena o tempo necessário para o user completar a fase.
+A cada **'frame'** essa variável é incrementada.
 
 ### 8 - função init
 A função init é executada a cada reinício do jogo.
@@ -62,14 +60,13 @@ anguloadv é o ângulo da nave oponente.\
 A nave oponente é renderizada no ângulo correto e na posição atualizada.\
 As variáveis xfinais e yfinais armazenam a coordenada do fim da pista. Se a nave oponente chegou ao fim, uma mensagem é exibida e o jogo é reiniciado.\
 As variáveis **esq** e **dir** armazenam **true** se as setas do teclado estiverem pressionadas.\
-O ângulo da nave é recalculado.\
+O ângulo da nave principal é recalculado.\
 A nave é renderizada no angulo correto.\
-O cálculo para verificar se a nave colide com a nave oponente é mais simples do qe parece.\
+O cálculo para verificar se a nave colide com a nave oponente é mais simples do que parece.\
 Agora as variáveis **lx** e **ly** armazenam as coordenadas do ladrilho em que a **nave** está.\
-Se não há colisão e a nave está corretamente sobre a pista, a posição da nave é recalculada.\
-Caso contrário o jogo é reiniciado. (Dependendo da distância percorrida uma mensagem exibe a porcentagem.)\
+Se a nave está corretamente **'sobre algum ladrilho'** da pista, então a posição da nave é recalculada.\
+Caso contrário o jogo é reiniciado.\
 As variáveis **xfinais** e **yfinais** armazenam a coordenada do fim da pista. Se a **nave** chegou ao fim, uma mensagem de vitória é exibida e a próxima fase é iniciada.\
-A porcentagem concluída é exibida.\
 A variável **tempo** é **incrementada** ao **mesmo tempo** em que a função gameLoop é reinvocada.\
 Um cálculo determina o tempo de delay até que o próximo frame seja exibido.
 
