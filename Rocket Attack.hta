@@ -2,13 +2,13 @@
 <html>
 <title>Rocket Attack</title>
 <body onKeyDown='vira(event.keyCode);' onKeyUp='para();' background=RA/fundo.jpg>
-<center><img src=RA/logo.png style='width:360px; margin-top:100px;'><br><br>
+<center><img src=RA/logo.png style='width:360px; margin-top:140px;'><br><br>
 <div style='display:inline; padding:4px 10px; background-color:#ffffff;'><input style='cursor:pointer;' onclick='drawStage(0);gameLoop();' type=radio> &nbsp; <input style='cursor:pointer;' onclick='drawStage(1);gameLoop();' type=radio> &nbsp; <input style='cursor:pointer;' onclick='drawStage(2);gameLoop();' type=radio></div>
 </center>
 </body>
 <script>
-window.resizeTo(478,532);
-window.moveTo((screen.width-478)/2,(screen.height-532)/2);
+window.resizeTo(600,600);
+window.moveTo((screen.width-600)/2,(screen.height-600)/2);
 esq=false;
 dir=false;
 fatorx=[9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8];
@@ -27,10 +27,10 @@ function init(){
 	dir=false;
 	angulo=0;
 	anguloadv=0;
-	posx=-(xiniciais[fase]*200)-30;
-	posy=-(yiniciais[fase]*200)-110;
-	advx=-(xiniciais[fase]*200)-30;
-	advy=-(yiniciais[fase]*200)-20;
+	posx=-(xiniciais[fase]*200)-64;
+	posy=-(yiniciais[fase]*200)-50;
+	advx=-(xiniciais[fase]*200)-64;
+	advy=-(yiniciais[fase]*200)+40;
 	tempo=0;
 	oponente=parseInt(Math.random()*4);
 }
@@ -43,8 +43,8 @@ function para(){
 	dir=false;
 }
 function gameLoop(){
-	lx=Math.ceil((-advx+30)/200);
-	ly=Math.ceil((-advy+40)/200);
+	lx=Math.ceil((-advx+64)/200);
+	ly=Math.ceil((-advy+100)/200);
 	advx+=fatorx[anguloadv]*3.14;
 	advy+=fatory[anguloadv]*3.14;
 	if(pista[fase][lx][ly]==4)anguloadv=9;
@@ -52,8 +52,8 @@ function gameLoop(){
 	if(pista[fase][lx][ly]==3)anguloadv=27;
 	if(pista[fase][lx][ly]==1)anguloadv=0;
 	document.getElementById('adv').src="RA/Adversario/"+oponente+"/"+anguloadv+'.png';
-	document.getElementById('adv').style.top=(posx-advx+200)+'px';
-	document.getElementById('adv').style.left=(posy-advy+200)+'px';
+	document.getElementById('adv').style.top=(posx-advx+234)+'px';
+	document.getElementById('adv').style.left=(posy-advy+260)+'px';
 	if(lx==xfinais[fase]&&ly==yfinais[fase]){
 		alert('A nave oponente chegou ao final antes de você !!!');
 		init();
@@ -63,9 +63,9 @@ function gameLoop(){
 	document.getElementById('car').src="RA/Foguetes/"+angulo+'.png';
 	document.getElementById('tracado').style.top=posx+'px';
 	document.getElementById('tracado').style.left=posy+'px';
-	if(parseInt(document.getElementById('adv').style.top)>160&&parseInt(document.getElementById('adv').style.top)<240&&parseInt(document.getElementById('adv').style.left)>160&&parseInt(document.getElementById('adv').style.left)<240)init();
-	lx=Math.ceil((-posx+30)/200);
-	ly=Math.ceil((-posy+40)/200);
+	if(parseInt(document.getElementById('adv').style.top)>194&&parseInt(document.getElementById('adv').style.top)<274&&parseInt(document.getElementById('adv').style.left)>220&&parseInt(document.getElementById('adv').style.left)<300)init();
+	lx=Math.ceil((-posx+64)/200);
+	ly=Math.ceil((-posy+100)/200);
 	if(lx>=0&&ly>=0&&lx<pista[fase].length&&ly<pista[fase][0].length&&pista[fase][lx][ly]!=0){
 		if(tempo>5){
 			posx+=fatorx[angulo]*3.7;
@@ -83,7 +83,7 @@ function gameLoop(){
 function drawStage(f){
 	fase=f%3;
 	init();
-	texto="<center><img style='width:64px; position:absolute; top:200px; left:200px; z-index:1;' id=car src=RA/Foguetes/18.png><img style='width:64px; position:absolute; top:200px; left:200px; z-index:1;' id=adv src=RA/Adversario/18.png></center><div style='position:absolute; right:6px; top:5px; background-color:#ffffff; padding:3px 1px 3px 0px; z-index:2;'>";
+	texto="<center><img style='width:64px; position:absolute; top:234px; left:260px; z-index:1;' id=car src=RA/Foguetes/18.png><img style='width:64px; position:absolute; z-index:1;' id=adv></center><div style='position:absolute; right:6px; top:5px; background-color:#ffffff; padding:3px 1px 3px 0px; z-index:2;'>";
 	for(x=0;x<3;x++)texto+="<input style='cursor:pointer;' onclick=\"drawStage("+x+");\" type=radio"+(fase==x?" checked":"")+"><br>";
 	texto+="</div><table cellpadding=0 cellspacing=0 id=tracado style='position:absolute; top:"+posy+"px; left:"+posx+"px;'><tr>";
 	for(x=0;x<pista[fase].length;x++){
